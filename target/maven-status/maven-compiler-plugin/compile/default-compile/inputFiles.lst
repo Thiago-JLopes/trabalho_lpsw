@@ -1,9 +1,7 @@
-/home/thiago/UFJF-2023.2/LPSW/trabalholpsw/src/main/java/com/mycompany/trabalholpsw/model/ConFactory.java
-/home/thiago/UFJF-2023.2/LPSW/trabalholpsw/src/main/java/com/mycompany/trabalholpsw/sair.java
-/home/thiago/UFJF-2023.2/LPSW/trabalholpsw/src/main/java/com/mycompany/trabalholpsw/model/Usuario.java
-/home/thiago/UFJF-2023.2/LPSW/trabalholpsw/src/main/java/com/mycompany/trabalholpsw/menu.java
-/home/thiago/UFJF-2023.2/LPSW/trabalholpsw/src/main/java/com/mycompany/trabalholpsw/welcome.java
-/home/thiago/UFJF-2023.2/LPSW/trabalholpsw/src/main/java/com/mycompany/trabalholpsw/JakartaRestConfiguration.java
-/home/thiago/UFJF-2023.2/LPSW/trabalholpsw/src/main/java/com/mycompany/trabalholpsw/resources/JakartaEE91Resource.java
-/home/thiago/UFJF-2023.2/LPSW/trabalholpsw/src/main/java/com/mycompany/trabalholpsw/errojava.java
-/home/thiago/UFJF-2023.2/LPSW/trabalholpsw/src/main/java/com/mycompany/trabalholpsw/model/DaoUsuario.java
+/home/thiago/UFJF-2023.2/LPSW/semana07/trabalho_lpsw/src/main/java/com/mycompany/trabalholpsw/resources/JakartaEE91Resource.java
+/home/thiago/UFJF-2023.2/LPSW/semana07/trabalho_lpsw/src/main/java/com/mycompany/trabalholpsw/code/JakartaRestConfiguration.java
+/home/thiago/UFJF-2023.2/LPSW/semana07/trabalho_lpsw/src/main/java/com/mycompany/trabalholpsw/model/Usuario.java
+/home/thiago/UFJF-2023.2/LPSW/semana07/trabalho_lpsw/src/main/java/com/mycompany/trabalholpsw/code/Controller2.java
+/home/thiago/UFJF-2023.2/LPSW/semana07/trabalho_lpsw/src/main/java/com/mycompany/trabalholpsw/model/DaoUsuario.java
+/home/thiago/UFJF-2023.2/LPSW/semana07/trabalho_lpsw/src/main/java/com/mycompany/trabalholpsw/model/ConFactory.java
+/home/thiago/UFJF-2023.2/LPSW/semana07/trabalho_lpsw/src/main/java/com/mycompany/trabalholpsw/code/controlsess.java

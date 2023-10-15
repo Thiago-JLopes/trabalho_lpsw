@@ -135,38 +135,22 @@ public class controlsess implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
 
-        HttpSession session = ((HttpServletRequest) request).getSession(false);
+        HttpSession session = ((HttpServletRequest) request).getSession(true);
 
         String loggedIn = (String) session.getAttribute("loggedIn");
         if (loggedIn == null || !loggedIn.equals("TRUE")) {
             session.setAttribute("msg", "Sua sessão expirou!");
             RequestDispatcher rd = ((HttpServletRequest) request).getRequestDispatcher("index.jsp");
             rd.forward(request, response);
-            return; 
+            return;
         }
+        chain.doFilter(request, response);
+}
 
-        RequestWrapper wrappedRequest = new RequestWrapper((HttpServletRequest) request);
-        ResponseWrapper wrappedResponse = new ResponseWrapper((HttpServletResponse) response);
-
-        doBeforeProcessing(wrappedRequest, wrappedResponse);
-
-        Throwable problem = null;
-
-        try {
-            chain.doFilter(wrappedRequest, wrappedResponse);
-        } catch (Throwable t) {
-            // If an exception is thrown somewhere down the filter chain,
-            // we still want to execute our after processing, and then
-            // rethrow the problem after that.
-            problem = t;
-            t.printStackTrace();
-        }
-    }
-
-    /**
-     * Return the filter configuration object for this filter.
-     */
-    public FilterConfig getFilterConfig() {
+/**
+ * Return the filter configuration object for this filter.
+ */
+public FilterConfig getFilterConfig() {
         return (this.filterConfig);
     }
 
@@ -201,7 +185,7 @@ public class controlsess implements Filter {
      * Return a String representation of this object.
      */
     @Override
-    public String toString() {
+public String toString() {
         if (filterConfig == null) {
             return ("controlsess()");
         }
@@ -258,7 +242,8 @@ public class controlsess implements Filter {
 
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);
-    }
+
+}
 
     /**
      * This request wrapper class extends the support class
@@ -269,105 +254,105 @@ public class controlsess implements Filter {
      */
     class RequestWrapper extends HttpServletRequestWrapper {
 
-        public RequestWrapper(HttpServletRequest request) {
-            super(request);
-        }
-
-        // You might, for example, wish to add a setParameter() method. To do this
-        // you must also override the getParameter, getParameterValues, getParameterMap,
-        // and getParameterNames methods.
-        protected Hashtable localParams = null;
-
-        public void setParameter(String name, String[] values) {
-            if (debug) {
-                System.out.println("controlsess::setParameter(" + name + "=" + values + ")" + " localParams = " + localParams);
-            }
-
-            if (localParams == null) {
-                localParams = new Hashtable();
-                // Copy the parameters from the underlying request.
-                Map wrappedParams = getRequest().getParameterMap();
-                Set keySet = wrappedParams.keySet();
-                for (Iterator it = keySet.iterator(); it.hasNext();) {
-                    Object key = it.next();
-                    Object value = wrappedParams.get(key);
-                    localParams.put(key, value);
-                }
-            }
-            localParams.put(name, values);
-        }
-
-        @Override
-        public String getParameter(String name) {
-            if (debug) {
-                System.out.println("controlsess::getParameter(" + name + ") localParams = " + localParams);
-            }
-            if (localParams == null) {
-                return getRequest().getParameter(name);
-            }
-            Object val = localParams.get(name);
-            if (val instanceof String) {
-                return (String) val;
-            }
-            if (val instanceof String[]) {
-                String[] values = (String[]) val;
-                return values[0];
-            }
-            return (val == null ? null : val.toString());
-        }
-
-        @Override
-        public String[] getParameterValues(String name) {
-            if (debug) {
-                System.out.println("controlsess::getParameterValues(" + name + ") localParams = " + localParams);
-            }
-            if (localParams == null) {
-                return getRequest().getParameterValues(name);
-            }
-            return (String[]) localParams.get(name);
-        }
-
-        @Override
-        public Enumeration getParameterNames() {
-            if (debug) {
-                System.out.println("controlsess::getParameterNames() localParams = " + localParams);
-            }
-            if (localParams == null) {
-                return getRequest().getParameterNames();
-            }
-            return localParams.keys();
-        }
-
-        @Override
-        public Map getParameterMap() {
-            if (debug) {
-                System.out.println("controlsess::getParameterMap() localParams = " + localParams);
-            }
-            if (localParams == null) {
-                return getRequest().getParameterMap();
-            }
-            return localParams;
-        }
+    public RequestWrapper(HttpServletRequest request) {
+        super(request);
     }
 
-    /**
-     * This response wrapper class extends the support class
-     * HttpServletResponseWrapper, which implements all the methods in the
-     * HttpServletResponse interface, as delegations to the wrapped response.
-     * You only need to override the methods that you need to change. You can
-     * get access to the wrapped response using the method getResponse()
-     */
-    class ResponseWrapper extends HttpServletResponseWrapper {
+    // You might, for example, wish to add a setParameter() method. To do this
+    // you must also override the getParameter, getParameterValues, getParameterMap,
+    // and getParameterNames methods.
+    protected Hashtable localParams = null;
 
-        public ResponseWrapper(HttpServletResponse response) {
-            super(response);
+    public void setParameter(String name, String[] values) {
+        if (debug) {
+            System.out.println("controlsess::setParameter(" + name + "=" + values + ")" + " localParams = " + localParams);
         }
 
-        // You might, for example, wish to know what cookies were set on the response
-        // as it went throught the filter chain. Since HttpServletRequest doesn't
-        // have a get cookies method, we will need to store them locally as they
-        // are being set.
-        /*
+        if (localParams == null) {
+            localParams = new Hashtable();
+            // Copy the parameters from the underlying request.
+            Map wrappedParams = getRequest().getParameterMap();
+            Set keySet = wrappedParams.keySet();
+            for (Iterator it = keySet.iterator(); it.hasNext();) {
+                Object key = it.next();
+                Object value = wrappedParams.get(key);
+                localParams.put(key, value);
+            }
+        }
+        localParams.put(name, values);
+    }
+
+    @Override
+    public String getParameter(String name) {
+        if (debug) {
+            System.out.println("controlsess::getParameter(" + name + ") localParams = " + localParams);
+        }
+        if (localParams == null) {
+            return getRequest().getParameter(name);
+        }
+        Object val = localParams.get(name);
+        if (val instanceof String) {
+            return (String) val;
+        }
+        if (val instanceof String[]) {
+            String[] values = (String[]) val;
+            return values[0];
+        }
+        return (val == null ? null : val.toString());
+    }
+
+    @Override
+    public String[] getParameterValues(String name) {
+        if (debug) {
+            System.out.println("controlsess::getParameterValues(" + name + ") localParams = " + localParams);
+        }
+        if (localParams == null) {
+            return getRequest().getParameterValues(name);
+        }
+        return (String[]) localParams.get(name);
+    }
+
+    @Override
+    public Enumeration getParameterNames() {
+        if (debug) {
+            System.out.println("controlsess::getParameterNames() localParams = " + localParams);
+        }
+        if (localParams == null) {
+            return getRequest().getParameterNames();
+        }
+        return localParams.keys();
+    }
+
+    @Override
+    public Map getParameterMap() {
+        if (debug) {
+            System.out.println("controlsess::getParameterMap() localParams = " + localParams);
+        }
+        if (localParams == null) {
+            return getRequest().getParameterMap();
+        }
+        return localParams;
+    }
+}
+
+/**
+ * This response wrapper class extends the support class
+ * HttpServletResponseWrapper, which implements all the methods in the
+ * HttpServletResponse interface, as delegations to the wrapped response. You
+ * only need to override the methods that you need to change. You can get access
+ * to the wrapped response using the method getResponse()
+ */
+class ResponseWrapper extends HttpServletResponseWrapper {
+
+    public ResponseWrapper(HttpServletResponse response) {
+        super(response);
+    }
+
+    // You might, for example, wish to know what cookies were set on the response
+    // as it went throught the filter chain. Since HttpServletRequest doesn't
+    // have a get cookies method, we will need to store them locally as they
+    // are being set.
+    /*
 	protected Vector cookies = null;
 	
 	// Create a new method that doesn't exist in HttpServletResponse
@@ -385,7 +370,7 @@ public class controlsess implements Filter {
 		cookies.add(cookie);
 		((HttpServletResponse)getResponse()).addCookie(cookie);
 	}
-         */
-    }
+     */
+}
 
 }
