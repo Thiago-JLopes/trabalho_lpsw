@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Semana 06</title>
+        <title>Semana 07</title>
 
         <style>
             .text {
@@ -38,7 +38,7 @@
     <body>
         <div style="text-align: center; margin-top: 30px; padding-bottom: 15px; margin-top: 10px;">
             <h1>Exercico de LPSW</h1>
-            <h2>Semana 6 - 2023.3</h2>
+            <h2>Semana 7 - 2023.3</h2>
         </div>
 
         <% 

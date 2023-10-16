@@ -10,6 +10,9 @@
         <url-pattern>/welcome.jsp</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
+    <listener>
+        <listener-class>com.mycompany.trabalholpsw.code.Listener1</listener-class>
+    </listener>
     <servlet>
         <servlet-name>Controller2</servlet-name>
         <servlet-class>com.mycompany.trabalholpsw.code.Controller2</servlet-class>

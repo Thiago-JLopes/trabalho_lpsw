@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="com.mycompany.trabalholpsw.code.Listener1" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +20,11 @@
             }
             div.container {
                 text-align: center;
+                width: 80%;
+                margin: 0 auto;
+            }
+            h1 {
+                margin-right: auto; 
             }
             a {
                 text-decoration: none;
@@ -32,6 +38,10 @@
     </head>
     <body>
         <div class='container'>
+            <div style="display: flex; align-items: center; justify-content: space-between">
+                <h5>Usuarios Logados: <%= Listener1.getCountUser()%></h5>
+            </div>
+            
             <h1>Menu</h1>
             <a href="xxx.html">ERRO HTML</a>
 
