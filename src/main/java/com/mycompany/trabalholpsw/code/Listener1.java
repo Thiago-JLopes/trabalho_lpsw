@@ -20,20 +20,32 @@ import jakarta.servlet.http.HttpSessionListener;
  */
 public class Listener1 implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
 
-    public static int count = 0;
+   /* public static int count = 0;
 
     public static int getCountUser() {
         return count;
     }
-    
+
     public static void decCount() {
-        if(count > 0)
+        if (count > 0) {
             count--;
+        }
+    }
+    */
+    
+    ServletContext context;
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println(">>> Context Initialized");
+        
+        ServletContext context = sce.getServletContext();
+        context.setAttribute("count", 0);
     }
 
     @Override
@@ -51,7 +63,7 @@ public class Listener1 implements ServletContextListener, HttpSessionListener, H
     public void sessionDestroyed(HttpSessionEvent se) {
         System.out.println(">>> Session Destroyed");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        if (count > 0) {
+        if (context.ge) {
             count--;
             System.out.println("usuarios >> " + count);
         }
@@ -61,7 +73,7 @@ public class Listener1 implements ServletContextListener, HttpSessionListener, H
     public void attributeAdded(HttpSessionBindingEvent event) {
         System.out.println(">>> Attribute Added: " + event.getName());
 
-        if ("loggedIn".equals(event.getName())) {
+       if ("loggedIn".equals(event.getName())) {
             count++;
             System.out.println("usuarios >> " + count);
         }
@@ -75,6 +87,22 @@ public class Listener1 implements ServletContextListener, HttpSessionListener, H
 
     @Override
     public void attributeReplaced(HttpSessionBindingEvent event) {
-        System.out.println(">>> AttributeReplaced: " + event.getName());
+        System.out.println(">>> AttributeReplaced: " + event.getValue());
+
+        if ("loggedIn".equals(event.getName())) {
+            if (event.getValue().equals("FALSE")) {
+                count++;
+                System.out.println("usuarios >> " + count);
+
+            } else {
+                System.out.println("usuarios >> " + count);
+                if (count > 0) {
+                    count--;
+                }
+                System.out.println("usuarios >> " + count);
+
+            }
+        }
+
     }
 }

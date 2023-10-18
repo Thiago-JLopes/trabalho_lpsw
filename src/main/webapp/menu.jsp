@@ -37,6 +37,7 @@
 
     </head>
     <body>
+        <% int cont = (Integer) session.getServletContext().getAttribute("count")%>
         <div class='container'>
             <div style="display: flex; align-items: center; justify-content: space-between">
                 <h5>Usuarios Logados: <%= Listener1.getCountUser()%></h5>
