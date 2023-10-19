@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="com.mycompany.trabalholpsw.code.Listener1" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,10 +36,10 @@
 
     </head>
     <body>
-        <% int cont = (Integer) session.getServletContext().getAttribute("count")%>
+        <% int cont = (Integer) session.getServletContext().getAttribute("count");%>
         <div class='container'>
             <div style="display: flex; align-items: center; justify-content: space-between">
-                <h5>Usuarios Logados: <%= Listener1.getCountUser()%></h5>
+                <h5>Usuarios Logados: <%=cont%></h5>
             </div>
             
             <h1>Menu</h1>
