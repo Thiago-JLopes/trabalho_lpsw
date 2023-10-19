@@ -9,14 +9,34 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <!-- CSS do Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
         <title>Semana 07</title>
 
         <style>
-            .text {
-                display: block;
-                margin-bottom: 25px;
-                width: 230px;
-                height: 30px;
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 90vh;
+                padding: 20px;
+                background: #f0efe4;
+            }
+
+            .formulario {
+                align-items: center;
+                width: 100%;
+                max-width: 500px;
+                box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 5px;
+                padding: 7px;
+                background: #eeecec;
             }
 
             .input-group {
@@ -29,44 +49,45 @@
                 display: flex;
                 justify-content: center;
             }
-
-            #form {
-                margin-top: 5px;
-            }
         </style>
     </head>
+
+    <!-- Body -->
     <body>
-        <div style="text-align: center; margin-top: 30px; padding-bottom: 15px; margin-top: 10px;">
-            <h1>Exercico de LPSW</h1>
-            <h2>Semana 7 - 2023.3</h2>
-        </div>
+        <div class="form-login">
 
-        <% 
-            String errorMessage = (String) session.getAttribute("msg");
-            if (errorMessage != null) { 
-        %>
-        <div style="color: red; text-align: center">
-            <%= errorMessage %>
-        </div>
-        <% session.removeAttribute("msg"); %>
-        <% } %>
+            <div class="formulario">
+                <h1 class="text-center">Exercico de LPSW</h1>
+                <h2 class="text-center">Semana 7 - 2023.3</h2>
 
-        <div id="form">
-            <form action="Controller2" method="post">
-                <input type="hidden" name="operacao" value="login">
-                <div class="input-group">
-                    <input class="text" type="text" placeholder="Informe o seu primeiro nome" name="userName">
+                <% 
+                    String errorMessage = (String) session.getAttribute("msg");
+                    if (errorMessage != null) { 
+                %>
+                <div style="color: red; text-align: center">
+                    <%= errorMessage %>
                 </div>
+                <% session.removeAttribute("msg"); %>
+                <% } %>
 
-                <div class="input-group">
-                    <input class="text" type="password" placeholder="informe a sua senha" name="password">
-                </div>
+                <form class="mt-4 mb-4" action="Controller2" method="post">
+                    <input type="hidden" name="operacao" value="login">
 
-                <div class="input-group">
-                    <input type="submit" value="submit">
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label for="userName">Usuário</label>
+                        <input type="text" class="form-control" id="userName" name="userName" placeholder="Informe o seu primeiro nome">
+                    </div>
 
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Informe a sua senha">
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary ">Login</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </body>
 </html>
